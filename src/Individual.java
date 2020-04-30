@@ -1,4 +1,7 @@
 public class Individual implements Comparable<Individual>{
+    /**
+     * Classe Indivíduo. Cria instâncias chamadas indivídio que contém as características cromossomo e custo.
+     */
     private int[] cromossomo;
     private double cost;
 
