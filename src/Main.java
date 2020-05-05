@@ -10,7 +10,7 @@ public class Main {
         int sizePop = 3;
 
         Population population = GA.createPopulation(sizePop,upper);
-        Population.printPopulationAll(population);
+        Population.printPopulation(population);
         int iteration = 0;
         do{
             iteration++;
@@ -19,7 +19,7 @@ public class Main {
             population = GA.partII(population, sizePop);
         }while (iteration < 100);
 
-        Population.printPopulationAll(population);
+        Population.printPopulation(population);
 
     }
 

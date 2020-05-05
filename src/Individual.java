@@ -1,9 +1,7 @@
 import java.util.Arrays;
 
 public class Individual implements Comparable<Individual>{
-    /**
-     * Classe Indivíduo. Cria instâncias chamadas indivídio que contém as características cromossomo e custo.
-     */
+
     int[] cromossomo;
     double cost;
 
@@ -17,9 +15,7 @@ public class Individual implements Comparable<Individual>{
         this.cost = 0;
     }
 
-    public Individual(){
-
-    }
+    public Individual(){}
 
     public double getCost() {
         return cost;

@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -28,15 +27,7 @@ public class Population {
         return population;
     }
 
-    public static void printPopulationCromo(Population pop){
-        ArrayList<Individual> population = pop.getPopulation();
-        for(int i = 0; i < population.size(); i++){
-            System.out.println("Individuo " + (i+1) + " = " + Arrays.toString(population.get(i).getCromossomo()));
-        }
-        System.out.println("");
-    }
-
-    public static void printPopulationAll(Population pop){
+    public static void printPopulation(Population pop){
         ArrayList<Individual> population = pop.getPopulation();
         for(int i = 0; i < population.size(); i++){
             System.out.println("Individuo " + (i+1) + ": Cromossomo = " + Arrays.toString(population.get(i).getCromossomo()) +
