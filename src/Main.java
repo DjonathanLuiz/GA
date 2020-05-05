@@ -1,3 +1,4 @@
+import java.util.Date;
 public class Main {
 
     public static void main(String[] args){
@@ -20,6 +21,8 @@ public class Main {
         }while (iteration < 100);
 
         Population.printPopulation(population);
+
+
 
     }
 
