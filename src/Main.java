@@ -9,7 +9,6 @@ public class Main {
         //printPOP(pop);
         //List<Integer> upper2 = Collections.sort(Arrays.asList(upper));
         System.out.println("Upper = " + Arrays.toString(upper));
-        Population population = new Population();
 
     }
 

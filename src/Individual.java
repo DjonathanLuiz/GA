@@ -1,9 +1,25 @@
+import java.util.Arrays;
+
 public class Individual implements Comparable<Individual>{
     /**
      * Classe Indivíduo. Cria instâncias chamadas indivídio que contém as características cromossomo e custo.
      */
-    private int[] cromossomo;
-    private double cost;
+    int[] cromossomo;
+    double cost;
+
+    public Individual(int[] cromo, double cost){
+        this.cromossomo = cromo;
+        this.cost = cost;
+    }
+
+    public Individual(int[] cromo){
+        this.cromossomo = cromo;
+        this.cost = 0;
+    }
+
+    public Individual(){
+
+    }
 
     public double getCost() {
         return cost;
@@ -21,16 +37,18 @@ public class Individual implements Comparable<Individual>{
         this.cromossomo = cromossomo;
     }
 
+    public void printIndividuo(){
+        System.out.println("Cromossomo = " + Arrays.toString(this.cromossomo));
+        System.out.println("Custo = " + this.cost);
+    }
+
     @Override
     public int compareTo(Individual individual) {
 
-        double compareQuantity = ((Individual) individual).getCost();
+        double compareQuantity = 100*((Individual) individual).getCost();
+        double thisCost = 100*this.cost;
 
         //ascending order
-        return this.cost - compareQuantity;
-
-        //descending order
-        //return compareQuantity - this.quantity;
-
+        return (int) Math.round(thisCost - compareQuantity);
     }
 }

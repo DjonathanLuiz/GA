@@ -1,11 +1,9 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Random;
+import java.util.*;
 
 public class Testes{
 
     public static void main(String[] args){
+
         //Limites
         int[] upper = {55,45,75}, lower = {1,1,1};
         // Probabilidades
@@ -23,33 +21,24 @@ public class Testes{
     public static Population createPopulation(int sizePop, int[] upperLimit){
         Random random = new Random(); //Necessary to create random values
         Population population = new Population();
-        ArrayList<Individual> pop = new ArrayList<>();
-
         for(int j = 0; j < sizePop; j++){
-            Individual individual = new Individual();
             int[] cromossomo = new int[upperLimit.length]; //Create the individuals
-            for(int i = 0; i < upperLimit.length; i++){
-                cromossomo[i] = random.nextInt(upperLimit[i])+1; //Set a random value to each position restricted by the upper limit
-            }
-            individual.setCromossomo(cromossomo);
-            individual.setCost(0);
-            pop.add(individual);
+            for(int i = 0; i < upperLimit.length; i++){cromossomo[i] = random.nextInt(upperLimit[i])+1;}
+            population.setIndividual(population, cromossomo);
         }
-        population.setPopulation(pop); // Add the individual to the population
-
         return (population);
     }
 
     public static Population crossover(Population popReal, double crossoverRate) {
         Random random = new Random(); //To reach random numbers
         ArrayList<Individual> pop = popReal.getPopulation();
-        ArrayList<Individual> newPop= new ArrayList<>();
         Population population = new Population();
         int crossoverTimes = (int) Math.round(pop.size()*crossoverRate);
 
         for(int i = 0; i < crossoverTimes; i++){
             int randInd1; int randInd2;
-            int[] newcromo1 = new int[pop.get(1).getCromossomo().length]; int[] newcromo2 = new int[pop.get(1).getCromossomo().length];
+            int[] newcromo1 = new int[pop.get(1).getCromossomo().length];
+            int[] newcromo2 = new int[pop.get(1).getCromossomo().length];
             int crossPoint;
             Individual son1 = new Individual();
             Individual son2 = new Individual();
@@ -75,13 +64,9 @@ public class Testes{
                     newcromo2[j] = cromo1[j];
                 }
             }
-            son1.setCromossomo(newcromo1);
-            son2.setCromossomo(newcromo2);
-            newPop.add(son1);
-            newPop.add(son2);
+            population.setIndividual(population, newcromo1);
+            population.setIndividual(population, newcromo2);
         }
-        population.setPopulation(newPop);
-
         return(population);
 
     }
@@ -91,10 +76,9 @@ public class Testes{
         Random random = new Random();
         ArrayList<Individual> pop = sons.getPopulation();
         ArrayList<Individual> popParents = parents.getPopulation();
-        ArrayList<Individual> newPop = new ArrayList<>();
         Population mutatedSons = new Population();
         for(int i = 0; i < popParents.size(); i++){
-            newPop.add(popParents.get(i));
+            mutatedSons.setIndividual(mutatedSons, popParents.get(i).getCromossomo(), popParents.get(i).getCost());
         }
 
         int[] valores = {-3, -2, -1, 1, 2, 3};
@@ -104,7 +88,6 @@ public class Testes{
             int[] cromossomo = Arrays.copyOf(pop.get(i).getCromossomo(), pop.get(i).getCromossomo().length);
 
             if(prob2 <= mutProb){
-                Individual individual = new Individual();
                 int position = random.nextInt(cromossomo.length);
                 int alfa = valores[random.nextInt(valores.length)];
                 cromossomo[position] =  cromossomo[position] + alfa;
@@ -114,14 +97,11 @@ public class Testes{
                 if(cromossomo[position] <= lowerLimit[position]){
                     cromossomo[position] = lowerLimit[position];
                 }
-                individual.setCromossomo(cromossomo);
-                newPop.add(individual);
+                mutatedSons.setIndividual(mutatedSons, cromossomo);
             } else {
-                newPop.add(pop.get(i));
+                mutatedSons.setIndividual(mutatedSons, pop.get(i).getCromossomo());
             }
         }
-        mutatedSons.setPopulation(newPop);
         return(mutatedSons);
     }
-
 }
