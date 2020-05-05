@@ -1,16 +1,24 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Collections;
 import java.util.Random;
 
 public class GA {
 
-    public static Population partI(int sizePop, int[] upperLimit, double crossoverRate, double mutProb, int[] lowerLimit){
-        Population population = createPopulation(sizePop,upperLimit);
+    public static Population partI(Population population, int[] upperLimit, double crossoverRate, double mutProb, int[] lowerLimit){
         Population sons = crossover(population, crossoverRate);
         Population mutated = mutation(population, sons, mutProb, lowerLimit, upperLimit);
         return mutated;
     }
-    private static Population createPopulation(int sizePop, int[] upperLimit){
+
+    public static Population partII(Population pop, int sizePop){
+        Population.ranking(pop);
+        Population population = nextGeneration(pop, sizePop);
+        return population;
+    }
+
+    public static Population createPopulation(int sizePop, int[] upperLimit){
         Random random = new Random(); //Necessary to create random values
         Population population = new Population();
         for(int j = 0; j < sizePop; j++){
@@ -95,5 +103,12 @@ public class GA {
             }
         }
         return(mutatedSons);
+    }
+
+    private static Population nextGeneration(Population pop, int popSize){
+        Population nextGeneration = new Population();
+        ArrayList<Individual> newPop = new ArrayList<Individual>(pop.getPopulation().subList(0,popSize));
+        nextGeneration.setPopulation(newPop);
+        return nextGeneration;
     }
 }
